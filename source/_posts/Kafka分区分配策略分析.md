@@ -1,7 +1,7 @@
 ---
 title: Kafka分区分配策略分析
 date: 2020-01-20 18:33:18
-tags: KAFKA
+tags: Kafka
 ---
 ## 背景
 在Kafka中，每个Topic会包含多个分区，默认情况下一个分区只能被一个消费组下面的一个消费者消费，这里就产生了分区分配的问题。Kafka中提供了多重分区分配算法（PartitionAssignor）的实现：RangeAssigor、RoundRobinAssignor、StickyAssignor。本文主要介绍StickyAssignor，顺带会介绍RangeAssigor、RoundRobinAssignor作为分区分配的背景知识。
