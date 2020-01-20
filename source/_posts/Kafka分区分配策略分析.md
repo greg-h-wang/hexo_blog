@@ -1,7 +1,7 @@
 ---
 title: Kafka分区分配策略分析
 date: 2020-01-20 18:33:18
-tags:
+tags: KAFKA
 ---
 ## 背景
 在Kafka中，每个Topic会包含多个分区，默认情况下一个分区只能被一个消费组下面的一个消费者消费，这里就产生了分区分配的问题。Kafka中提供了多重分区分配算法（PartitionAssignor）的实现：RangeAssigor、RoundRobinAssignor、StickyAssignor。本文主要介绍StickyAssignor，顺带会介绍RangeAssigor、RoundRobinAssignor作为分区分配的背景知识。
@@ -61,12 +61,9 @@ RoundRobinAssignor的分配策略是将消费组内订阅的所有Topic的分区
 
 我们先来看预期分配的结构，后续再具体分析StickyAssignor的算法实现。
 例如：
-	* 
-有3个Consumer：C0、C1、C2
-	* 
-有4个Topic：T0、T1、T2、T3，每个Topic有2个分区
-	* 
-所有Consumer都订阅了这4个分区
+	* 有3个Consumer：C0、C1、C2
+	* 有4个Topic：T0、T1、T2、T3，每个Topic有2个分区
+	* 所有Consumer都订阅了这4个分区
 
 
 StickyAssignor的分配结果如下图所示（增加RoundRobinAssignor分配作为对比）：
@@ -74,12 +71,9 @@ StickyAssignor的分配结果如下图所示（增加RoundRobinAssignor分配作
 ![RangeAssignor_png](Kafka分区分配策略分析/StickyAssignor2.png)
 上面的例子中，Sticky模式原来分配给C0、C2的分区都没有发生变动，且最终C0、C1达到的均衡的目的。
 再举一个例子：
-	* 
-有3个Consumer：C0、C1、C2
-	* 
-3个Topic：T0、T1、T2，它们分别有1、2、3个分区
-	* 
-C0订阅T0；C1订阅T0、T1；C2订阅T0、T1、T2
+	* 有3个Consumer：C0、C1、C2
+	* 3个Topic：T0、T1、T2，它们分别有1、2、3个分区
+	* C0订阅T0；C1订阅T0、T1；C2订阅T0、T1、T2
 
 
 分配结果如下图所示：
