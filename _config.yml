@@ -3,9 +3,9 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Greg's blog 
+title: Greg's Blog 
 subtitle:
-description: blog
+description: DO EPIC SHIT.
 keywords: personal,learning,linux,DevOps
 author: Greg Wang 
 language: zh-CN 
@@ -14,9 +14,9 @@ timezone: UTC
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
 url: https://jpopholic.github.io 
-root: /
+root: / 
 permalink: :year/:month/:day/:title/
-permalink_defaults:
+permalink_defaults: 
 pretty_urls:
   trailing_index: true # Set to false to remove trailing index.html from permalinks
 
@@ -90,7 +90,10 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: vexo  
+theme: next  
+#theme: polarbear  
+#theme: polarbearsimple  
+#theme: vexo  
 #theme: Chic 
 
 # Deployment
@@ -99,3 +102,27 @@ deploy:
   type: git
   repo: git@github.com:jpopholic/jpopholic.github.io.git
   branch: master
+
+# 发布整站用配置
+algolia:
+  applicationID: 'HQ4AQTAB6W'
+  apiKey: '6f6fb4cf6b1d3ae53ce1df317540add9'
+  indexName: 'greg.blog'
+  chunkSize: 5000
+  appId: "HQ4AQTAB6W"
+  adminApiKey: "25e7ef5c5d6f9726cb163be87e27ae50"
+  fields:
+  - content:strip:truncate,0,500
+  - excerpt:strip
+  - permalink
+  - cover
+  - slug
+  - tags
+  - categories
+  - title
+
+search:
+  path: search.xml
+  field: post
+  format: html
+  limit: 10000
